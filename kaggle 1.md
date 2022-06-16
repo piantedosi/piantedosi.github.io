@@ -22,6 +22,12 @@ day 2:
     questo test è risultato impossibile per problemi di memoria 
     SOLUZIONE: tentare di salvare gli oggetti embeddings e TFIDF per ricaricarli senza buttare memoria per crearli
     
+    - il test con il gradient boosring e unicamente gli embedding di universal sentece encoder ha dato buoni risultati
+    gradient bosting solo embeddingsV4
+    NEXT: testare con un diverso encoder 
+    
 - test con la previsione unicamente di Ineffective:
   questo test è fallito parzialmente, roc, precison-recal e cumulative gain non sono nulli, ma non sono buoni
   NOTA: non è detto che la strada sia fallimentare può essere un pezzo di un modello più completo
+  
+
