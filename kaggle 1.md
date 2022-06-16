@@ -1,7 +1,7 @@
 ---
 layout: default
 title: "kaggle 1"
-permalink: /diffusion_model/
+permalink: /todo/
 theme: jekyll-theme-architect
 ---
 
