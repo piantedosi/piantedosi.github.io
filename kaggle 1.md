@@ -5,7 +5,9 @@ permalink: /diffusion_model/
 theme: jekyll-theme-architect
 ---
 
-# usato https://tfhub.dev/google/universal-sentence-encoder/4 per generare i word embeddings
+day 1:
+
+usato https://tfhub.dev/google/universal-sentence-encoder/4 per generare i word embeddings
 
 seguito da un modello di tipo ensamble Random forset/adaboost/altri per le previsoni, la log_loss alla meglio è sui 0.9
 
