@@ -30,4 +30,8 @@ day 2:
   questo test è fallito parzialmente, roc, precison-recal e cumulative gain non sono nulli, ma non sono buoni
   NOTA: non è detto che la strada sia fallimentare può essere un pezzo di un modello più completo
   
+day 3:
+tentato con spacy e la matrice lca_matrix non ha funzionato,
+ma spacy da un grafico! forse può valere la pena di tentare con i GNN
+  
 
