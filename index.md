@@ -2,7 +2,7 @@
 layout: default
 ---
 
-## Welcome to GitHub Pages
+## Some Projects
 
  - [diffusion model](https://piantedosi.github.io/diffusion_model/) 
  - 
