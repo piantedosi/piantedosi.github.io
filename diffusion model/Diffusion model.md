@@ -3,6 +3,7 @@ layout: default
 title: "Diffusion model"
 permalink: /diffusion_model/
 theme: jekyll-theme-architect
+classes: wide
 ---
 
 # Diffusion model
@@ -56,7 +57,7 @@ $$= \alpha^n A_{0} + N(1-\alpha^n) $$
 
 This close form is extremely useful since it allows us to obtain the n-th image of the diffusion process without calculation the preceding ones. 
 
-$$\alpha$$, the noise scaling factor is an hyperparameter that will be close, but inferior to 1 (in our case $$\alpha = 0.99$$). We can see that as $$n\rarr \infty$$ then $$A_{n}\rarr N$$. In practice the information content of $A$ is lost well before infinity (in our case $$n = 500$$ will be enough).
+$$\alpha$$, the noise scaling factor is an hyperparameter that will be close, but inferior to 1 (in our case $$\alpha = 0.99$$). We can see that as $$n \xrightarrow{}\infty$$ then $$A_{n} \xrightarrow{} N$$. In practice the information content of $$A$$ is lost well before infinity (in our case $$n = 500$$ will be enough).
 
 Another trick that we will use is construction just a single machine learning model, $$\it{M}$$, to execute all the inverse diffusion steps. The model will take as inputs the noised image and the $$\alpha^n$$ parameter. The output will be a prediction of the added noise, without rescaling $$N$$. Therefore a single denoising step will be:
 
@@ -359,19 +360,19 @@ Example of whole denoising process:
 
 Examples of images reconstructed **without step size** scaling and $n_{max}=500$:
 
-![image info](.\without_step_scaling.png)
+![image info](./without_step_scaling.png)
 
 Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=500$:
 
-![image info](.\with_step_scaling.png)
+![image info](./with_step_scaling.png)
 
 Examples of images reconstructed **without step size** scaling and $n_{max}=50$:
 
-![image info](.\without_step_scaling_2.png)
+![image info](./without_step_scaling_2.png)
 
 Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=50$:
 
-![image info](.\with_step_scaling_2.png)
+![image info](./with_step_scaling_2.png)
 
 ## Final note
 All the code and the trained model can be found [here](https://github.com/piantedosi/diffusion_from_scratch)
