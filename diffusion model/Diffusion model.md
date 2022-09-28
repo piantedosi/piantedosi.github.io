@@ -40,25 +40,31 @@ The first step of the diffusion process will be:
 
 $$ A_1 = \alpha A_0 + N(1-\alpha)$$
 
-If we apply multiple times the noising step, we can obtain a close form for the n-th generical image, $A_n$ .
+If we apply multiple times the noising step, we can obtain a close form for the n-th generical image, $$A_n$$ .
 
 $$ A_{n+1} = $$
+
 $$= \alpha A_n + N(1-\alpha) = $$
+
 $$= \alpha (\alpha A_{n-1} + N(1-\alpha))+ N(1-\alpha) =$$
+
 $$= \alpha^2 A_{n-1} + N(1-\alpha^2) = $$
+
 $$= ... = $$
+
 $$= \alpha^n A_{0} + N(1-\alpha^n) $$
 
 This close form is extremely useful since it allows us to obtain the n-th image of the diffusion process without calculation the preceding ones. 
 
-$\alpha$, the noise scaling factor is an hyperparameter that will be close, but inferior to 1 (in our case $\alpha = 0.99$). We can see that as $n\rarr \infty$ then $A_{n}\rarr N$. In practice the information content of $A$ is lost well before infinity (in our case $n = 500$ will be enough).
+$$\alpha$$, the noise scaling factor is an hyperparameter that will be close, but inferior to 1 (in our case $$\alpha = 0.99$$). We can see that as $$n\rarr \infty$$ then $$A_{n}\rarr N$$. In practice the information content of $A$ is lost well before infinity (in our case $$n = 500$$ will be enough).
 
-Another trick that we will use is construction just a single machine learning model, $\it{M}$, to execute all the inverse diffusion steps. The model will take as inputs the noised image and the $\alpha^n$ parameter. The output will be a prediction of the added noise, without rescaling $N$. Therefore a single denoising step will be:
+Another trick that we will use is construction just a single machine learning model, $$\it{M}$$, to execute all the inverse diffusion steps. The model will take as inputs the noised image and the $$\alpha^n$$ parameter. The output will be a prediction of the added noise, without rescaling $$N$$. Therefore a single denoising step will be:
 
 $$ N \approx \hat{N} = \it{M}(A_{n}, \alpha^n) $$
+
 $$A_{n-1}= \frac{A_{n} - \hat{N}(1-\alpha)}{\alpha} $$
 
-In the formulae above we see that, even if we have a prediction for $N$ at each step, we just remove from the starting full noise image just a portion of $N$. This is done because a the start of the inverse diffusion process we are really uncertain and the prediction is not reliable.
+In the formulae above we see that, even if we have a prediction for $$N$$ at each step, we just remove from the starting full noise image just a portion of $$N$$. This is done because a the start of the inverse diffusion process we are really uncertain and the prediction is not reliable.
 
 Let's give a look at the code used to add the noise: 
 
@@ -304,11 +310,12 @@ We have already described the process of inverse diffusion and the use of a sing
 There is a technique that can be used to improve the results of this generation process. This is the scaling of the step size. This amounts to increase the number of steps taken for each noise prediction. 
 
 $$ N \approx \hat{N} = \it{M}(A_{n}, \alpha^n) $$
+
 $$A_{n-1}= \frac{A_{n} - \hat{N}(1-\alpha^{STEP\_SIZE})}{\alpha^{STEP\_SIZE}} $$
 
-In layman terms this is basically equivalent to an increase in the trust given to the model prediction. We tested with $STEP\_SIZE=1.5$ 
+In layman terms this is basically equivalent to an increase in the trust given to the model prediction. We tested with $$STEP\_SIZE=1.5$$
 
-This image generating process can be slow, this is because the model has to be applied over and over again in sequence. Is possible to reduce the numbers of steps at the expense of image quality. Let's consider the maximum $\alpha^n$ presented to the model in training (in our case $\alpha=0.99$ and $n_{max}=500$). Chosen a new number of steps, called $n'_{max}$, is possible to calculate the new needed corresponding $\alpha'$ as:
+This image generating process can be slow, this is because the model has to be applied over and over again in sequence. Is possible to reduce the numbers of steps at the expense of image quality. Let's consider the maximum $$\alpha^n$$ presented to the model in training (in our case $$\alpha=0.99$$ and $$n_{max}=500$$). Chosen a new number of steps, called $$n'_{max}$$, is possible to calculate the new needed corresponding $$\alpha'$$ as:
 
 $$ \alpha' = \alpha^{\frac{n_{max}}{n'_{max}}} $$
 
@@ -347,18 +354,23 @@ plt.show()
 ## A selection of results
 
 Example of whole denoising process:
+
 ![image info](./denoising_real.png)
 
 Examples of images reconstructed **without step size** scaling and $n_{max}=500$:
+
 ![image info](.\without_step_scaling.png)
 
 Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=500$:
+
 ![image info](.\with_step_scaling.png)
 
 Examples of images reconstructed **without step size** scaling and $n_{max}=50$:
+
 ![image info](.\without_step_scaling_2.png)
 
 Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=50$:
+
 ![image info](.\with_step_scaling_2.png)
 
 ## Final note
