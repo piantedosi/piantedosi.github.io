@@ -358,19 +358,19 @@ Example of whole denoising process:
 
 ![image info](./denoising_real.png)
 
-Examples of images reconstructed **without step size** scaling and $n_{max}=500$:
+Examples of images reconstructed **without step size** scaling and $$n_{max}=500$$:
 
 ![image info](./without_step_scaling.png)
 
-Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=500$:
+Examples of images reconstructed **with step size** scaling of $$1.5$$ and $$n_{max}=500$$:
 
 ![image info](./with_step_scaling.png)
 
-Examples of images reconstructed **without step size** scaling and $n_{max}=50$:
+Examples of images reconstructed **without step size** scaling and $$n_{max}=50$$:
 
 ![image info](./without_step_scaling_2.png)
 
-Examples of images reconstructed **with step size** scaling of $1.5$ and $n_{max}=50$:
+Examples of images reconstructed **with step size** scaling of $$1.5$$ and $$n_{max}=50$$:
 
 ![image info](./with_step_scaling_2.png)
 
