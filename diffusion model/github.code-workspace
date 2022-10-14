@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"name": "piantedosi.github.io",
+			"path": ".."
+		},
+		{
+			"name": "diffusion_from_scratch",
+			"path": "../../diffusion_from_scratch"
+		}
+	],
+	"settings": {}
+}
