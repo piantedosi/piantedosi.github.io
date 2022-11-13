@@ -73,8 +73,7 @@ Let's give a look at the code used to add the noise:
 def add_noise(imm, alpha=0.9, n_max=100, n_repeat=1):
 # n_repeat allows us to present the same image multiple times in the same batch with different type of noise!
     '''
-This function is used add the noise to a set of images. The added noise is randomly scaled to correspond to a uniform choice of diffusion step between 0 and n_max.
-The resulting vector is a set of images with various noise level added.
+This function is used add the noise to a set of images. The added noise is randomly scaled to correspond to a uniform choice of diffusion step between 0 and n_max.The resulting vector is a set of images with various noise level added.
 
 ## Inputs:
 * imm: an numpy array of images. Shape: (n_images, size, size).
