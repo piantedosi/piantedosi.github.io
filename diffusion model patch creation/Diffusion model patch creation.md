@@ -93,7 +93,7 @@ def patch_creation_jit_full_dataset(images):
 
 ## Results
 
-In the following boxplot we can see the times taken. Note how the first jit computation is always the slowest, this is because the function gest compiled.
+In the following boxplot we can see the times taken. Note how the first jit computation is always the slowest, this is because, before the first run, the function gets compiled.
 
 ![image info](./results.png)
 
