@@ -226,8 +226,16 @@ pre {
  */
 
 code,
+pre {
+  white-space: pre-wrap;
+}
 kbd,
-pre,
+
+// code,
+// kbd,
+// pre,
+
+
 samp {
   font-family: monospace, monospace;
   font-size: 1em;
