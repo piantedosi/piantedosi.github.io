@@ -90,7 +90,9 @@ This function is used add the noise to a set of images. The added noise is rando
     shape = imm.shape
     g_noise_to_add = np.random.randn(*shape)
 
-    array_alphas_n = np.ones(shape[0])*alpha**np.random.randint(0, n_max + 1, shape[0]) 
+    array_alphas_n = np.ones(shape[0])*alpha**np.random.randint(0,
+                                                                n_max + 1,
+                                                                shape[0]) 
 
     noised_image = np.einsum('i, ikj -> ikj', array_alphas_n,  imm) +\
              np.einsum('i, ikj -> ikj', 1-array_alphas_n,  g_noise_to_add)
@@ -139,35 +141,57 @@ This is the main CustomDataGenerator
     def __get_data(self, index):
         
 
-        noised_imms, random_noise_to_add, alphas_n = add_noise(self.X[index:index+self.batch_size],
-                                                           n_repeat=self.n_repeat,
-                                                           alpha=self.alpha,
-                                                           n_max=self.n_max) 
+        noised_imms, random_noise_to_add, alphas_n = add_noise(
+            self.X[index:index+self.batch_size],
+            n_repeat=self.n_repeat,
+            alpha=self.alpha,
+            n_max=self.n_max
+            ) 
 
-        out_noised_imms = np.zeros(shape=(noised_imms.shape[0],
-                                          int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
-                                          (PATCH_SIZE+2*OVER_PATCH)**2)).astype('float32') 
-        out_random_noise_to_add = np.zeros(shape=(random_noise_to_add.shape[0],
-                                                  int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
-                                                  (PATCH_SIZE+2*OVER_PATCH)**2)).astype('float32')
+        out_noised_imms = np.zeros(
+            shape=(noised_imms.shape[0],
+            int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+            (PATCH_SIZE+2*OVER_PATCH)**2)
+            ).astype('float32') 
+
+        out_random_noise_to_add = np.zeros(
+            shape=(random_noise_to_add.shape[0],
+            int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+            (PATCH_SIZE+2*OVER_PATCH)**2)
+            ).astype('float32')
+
         noised_imms = noised_imms.astype('float32')
         random_noise_to_add = random_noise_to_add.astype('float32')
 
-        patched_noised_imm = patch_creation_vec(noised_imms, out_noised_imms, out_noised_imms).reshape(-1,  
-                                                                                                       int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
-                                                                                                       (PATCH_SIZE+2*OVER_PATCH)**2)
+        patched_noised_imm = patch_creation_vec(
+            noised_imms, 
+            out_noised_imms,
+            out_noised_imms
+            ).reshape(-1,
+                      int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+                      (PATCH_SIZE+2*OVER_PATCH)**2
+                      )
         
         # we concatenate to the patched images the used alphas_n
         return (np.concatenate([patched_noised_imm,
                                 np.einsum('i, ikj -> ikj',
                                           alphas_n, 
-                                          np.ones((patched_noised_imm.shape[0],1,patched_noised_imm.shape[2]))),
+                                          np.ones((patched_noised_imm.shape[0],
+                                                   1,
+                                                   patched_noised_imm.shape[2]
+                                                   )
+                                                 )
+                                          ),
 
                                ],
                                axis=1),
-              patch_creation_vec(random_noise_to_add, out_random_noise_to_add, out_random_noise_to_add).reshape(-1,  
-                                                                                                                int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
-                                                                                                                (PATCH_SIZE+2*OVER_PATCH)**2))
+              patch_creation_vec(
+                random_noise_to_add,
+                out_random_noise_to_add,
+                out_random_noise_to_add
+                ).reshape(-1,  
+                          int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+                          (PATCH_SIZE+2*OVER_PATCH)**2))
     
     def __getitem__(self, index):
 
@@ -217,10 +241,12 @@ This model will be a vision transformer. We constructed two functions: one to cr
             for i in range(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)):
                 for j in range(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)):
                     # we need to use the ascontiguousarray function in order to be able to reshape the array in numba
-                    out[m, c,:] = np.ascontiguousarray(images[m,
-                                                              i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
-                                                              j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH])\
-                                    .reshape((PATCH_SIZE+2*OVER_PATCH)**2)
+                    out[m, c,:] = np.ascontiguousarray(
+                        images[m,
+                        i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
+                        j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH]
+                        )\
+                        .reshape((PATCH_SIZE+2*OVER_PATCH)**2)
                     c+=1 
     ```
     This function is highly optimize, and uses Numba to parallelize and compile the code. This was needed because this function has to run many times during the training process.
@@ -249,9 +275,11 @@ This model will be a vision transformer. We constructed two functions: one to cr
         for i in range(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)):
             for j in range(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)):
                 recomposed[i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
-                        j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH] = (patched_image[c].reshape(PATCH_SIZE+2*OVER_PATCH, PATCH_SIZE+2*OVER_PATCH))+\
-                                                                             recomposed[i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
-                                                                                        j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH]
+                        j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH] =                        
+                (patched_image[c].reshape(PATCH_SIZE+2*OVER_PATCH,
+                                        PATCH_SIZE+2*OVER_PATCH))+\
+                recomposed[i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
+                            j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH]
                 c+=1
                 counts[i*PATCH_SIZE:i*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH,
                         j*PATCH_SIZE:j*PATCH_SIZE+PATCH_SIZE+2*OVER_PATCH] += 1
@@ -273,30 +301,39 @@ The used model is the following:
 class PositionPatchEncoder(tf.keras.layers.Layer):
     def __init__(self):
         super(PositionPatchEncoder, self).__init__()
-        self.position_embedding = tf.keras.layers.Embedding(input_dim=int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
-                                                            output_dim=(PATCH_SIZE+2*OVER_PATCH)**2)
+        self.position_embedding = tf.keras.layers.Embedding(
+            input_dim=int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+            output_dim=(PATCH_SIZE+2*OVER_PATCH)**2)
 
     def call(self, patch):
-        positions = tf.range(start=0, limit=int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2+1, delta=1)
+        positions = tf.range(start=0,
+                             limit=int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2+1,
+                             delta=1)
         encoded = patch + self.position_embedding(positions)
         return encoded
     
 def create_model():
     
-    input_tensor = tf.keras.Input(shape=[int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2+1, (PATCH_SIZE+2*OVER_PATCH)**2])
+    input_tensor = tf.keras.Input(
+        shape=[int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2+1,
+               (PATCH_SIZE+2*OVER_PATCH)**2])
 
     # Adding the positional encoding  
     x_start = PositionPatchEncoder()(input_tensor)
 
     # The use of residual connections has been instrumental in the agorithm actualy learning
-    x_mod = tf.keras.layers.MultiHeadAttention(num_heads=20, key_dim=100)(x_start, x_start)
+    x_mod = tf.keras.layers.MultiHeadAttention(
+        num_heads=20, key_dim=100)(x_start, x_start)
     x = tf.keras.layers.Add()([x_mod, x_start])
-    x_mod = tf.keras.layers.MultiHeadAttention(num_heads=20, key_dim=100)(x, x)
+    x_mod = tf.keras.layers.MultiHeadAttention(
+        num_heads=20, key_dim=100)(x, x)
     x = tf.keras.layers.Add()([x_mod, x_start])
-    x_mod = tf.keras.layers.MultiHeadAttention(num_heads=20, key_dim=100)(x, x)
+    x_mod = tf.keras.layers.MultiHeadAttention(
+        num_heads=20, key_dim=100)(x, x)
     x = tf.keras.layers.Add()([x_mod, x_start])
 
-    out = tf.keras.layers.Lambda(lambda x: x[:,:int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2])(x)
+    out = tf.keras.layers.Lambda(
+        lambda x: x[:,:int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2])(x)
 
     temp_model = tf.keras.Model(inputs=input_tensor, outputs=out)
     
@@ -336,16 +373,27 @@ for n in range(N, 0 ,-STEP):
         print(n)
     alpha = (ALPHA)**n
     patched_n_imm = patch_creation(noised_imm.reshape(SIZE,SIZE))
-    noise_pred = temp_model.predict(np.concatenate([patched_n_imm.reshape(1, patched_n_imm.shape[0], (PATCH_SIZE+2*OVER_PATCH)**2),
-                                                    alpha*np.ones((1,1,(PATCH_SIZE+2*OVER_PATCH)**2))
-                                                   ], axis=1))\
-                           .reshape(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2, (PATCH_SIZE+2*OVER_PATCH)**2)
+    noise_pred = temp_model.predict(
+        np.concatenate([patched_n_imm.reshape(1,
+                                              patched_n_imm.shape[0],
+                                              (PATCH_SIZE+2*OVER_PATCH)**2),
+                        alpha*np.ones((1,1,(PATCH_SIZE+2*OVER_PATCH)**2))
+                        ],
+                        axis=1))\
+        .reshape(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+                 (PATCH_SIZE+2*OVER_PATCH)**2)
 
 
-    noised_imm = noise_remove(recompose(noise_pred.reshape(int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2, (PATCH_SIZE+2*OVER_PATCH)**2)),
-             noised_imm.reshape(SIZE,SIZE),
-             alpha=ALPHA,
-             n=1.5*STEP)
+    noised_imm = noise_remove(
+        recompose(noise_pred.reshape(
+            int((SIZE-2*OVER_PATCH)/PATCH_SIZE)**2,
+            (PATCH_SIZE+2*OVER_PATCH)**2
+            )
+        ),
+        noised_imm.reshape(SIZE,SIZE),
+        alpha=ALPHA,
+        n=1.5*STEP
+    )
 
 plt.imshow(noised_imm)
 plt.show()
