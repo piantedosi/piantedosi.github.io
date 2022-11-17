@@ -53,7 +53,7 @@ $$ X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$$
 
 $$ (x_{1,i},...,x_{n,i}) \sim f(x_1,...,x_n)~~~\forall i=1,...,k$$
 
-The process of bootstrapping consist in training a multitude of models on different dataset sampled with replacement from $$X$$. Suppose we trained $$m$$ different models for each variable $$n$$ $$\bf{M}$$ $$=\{M_{i,j}\}_{\substack{\text{i=1,...,n} \\ \text{j=1,...,m}}}$$. 
+The process of bootstrapping consist in training a multitude of models on different dataset sampled with replacement from $$X$$. Suppose we trained $$m$$ different models for each variable $$n$$, $$=\{M_{i,j}\}_{\substack{\text{i=1,...,n} \\ \text{j=1,...,m}}}$$. 
 
 Let's focus on a single variable for example $$x_1$$, we have $$m$$ different models to predict this $$x_1$$ using $$x_2,x_3,...,x_n$$ therefore given some fixed $$x_2,x_3,...,x_n$$ we will have a set of $$m$$ different prediction for $$x_1$$. 
 
@@ -140,24 +140,17 @@ We will also use this adversarial model to calculate how many sweeps are needed 
 
 ## Adversarial modelling
 
-Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $$\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$ and the test dataset $$X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. This new dataset will be model with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to 1, means that the datasets are very distinguishable, a low accuracy, close to 0.5, means that the datasets are undistinguishable.
+Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $$\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$ and the test dataset $$X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. This new dataset will be model with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to $$1$$, means that the datasets are very distinguishable, a low accuracy, close to $$0.5$$, means that the datasets are undistinguishable.
 
 In the next plot we see how the adversarial accuracy decreases al the number of sweeps increases. 
 
 ![image info](./adversarial.png)
 
-As we can see around 10 sweeps of the Gibbs sampling process the generative model has reached a plateau in the data generation ability.
+As we can see around $$10$$ sweeps of the Gibbs sampling process the generative model has reached a plateau in the data generation ability.
 
 ## The sampling process visualized.
-In orange the real data and in blue the generated data
-
-esttsete
-<img src="./pairplot3.gif" />
+In this gif we can see the process of convergence of the Gibbs sampling process. The real data are the orange and in blue the generated data:
 
 ![Alt Text](./pairplot3.gif)
-
-testsetsetset
-
-![Alt Text](https://github.com/piantedosi/piantedosi.github.io/blob/main/gibbs%20sampling%20from%20decision%20tree/pairplot3.gif?raw=true)
 
 [back home](https://piantedosi.github.io/)
