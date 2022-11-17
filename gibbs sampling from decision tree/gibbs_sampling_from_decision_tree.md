@@ -129,7 +129,7 @@ for s in range(515):
   if s%50==0:
     print(s)
 ```
-Note how two different initialization techniques have been tried, the results, one convergence is reached are basically the same.
+Note how two different initialization techniques have been tried, the results, once convergence is reached are basically the same.
 
 Let's look at a pair plot that compares the generated data and the original data from the test set.
 ![image info](./original_and_new.png)
