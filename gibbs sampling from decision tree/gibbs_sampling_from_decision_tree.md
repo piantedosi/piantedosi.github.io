@@ -41,7 +41,7 @@ BEGIN:
     UNTILL {number of sweep reached}
 END
 ```
-A loop on the entire set of variables x_1,...,x_n is usually called a *sweep*
+A loop on the entire set of variables $$x_1,...,x_n$$ is usually called a *sweep*
 
 Under some assumptions we can guarantee that the outputs $$(x_1,...,x_n)$$ will behave as if they come from the joint distribution $$f(x_1,...,x_n)$$. This algorithm is particularly useful in Bayesian statistics where the joint distribution is often intractable, but the marginals are easier to manipulate.
 
