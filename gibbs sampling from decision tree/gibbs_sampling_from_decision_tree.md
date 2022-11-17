@@ -43,7 +43,7 @@ END
 ```
 
 Under some simple assumptions we can guarantee that the outputs $$(x_1,...,x_n)$$ will behave as if they come from the joint distribution $$f(x_1,...,x_n)$$.
-This algorithm is particularly useful in Bayesian statistics where the joint distribution is often intractable, but the marginals are easier. We will explore another use of this tool, the creation of a generative model starting with some simple supervised learning models.
+This algorithm is particularly useful in Bayesian statistics where the joint distribution is often intractable, but the marginals are easier to manipulate. We will explore another use of this tool, the creation of a generative model starting with some simple supervised learning models.
 
 ## Bootstrapping and the empirical marginal distribution
 
