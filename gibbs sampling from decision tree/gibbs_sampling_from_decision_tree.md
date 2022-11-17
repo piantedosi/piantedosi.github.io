@@ -149,7 +149,7 @@ In the next plot we see how the adversarial accuracy decreases al the number of 
 As we can see around $$10$$ sweeps of the Gibbs sampling process the generative model has reached a plateau in the data generation ability. This means that the data generated in this way are not completely indistinguishable from real word data, but they come pretty close.
 
 ## The sampling process visualized.
-In this gif we can see the process of convergence of the Gibbs sampling. The real data are the orange and in blue the generated data:
+In this gif we can see the process of convergence of the Gibbs sampling. The real data is in orange and the generated data is in blue:
 
 ![Alt Text](./pairplot3.gif)
 
