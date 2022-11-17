@@ -93,7 +93,7 @@ def patch_creation_jit_full_dataset(images):
 
 ## Results
 
-In the following boxplot we can see the times taken. Note how the first jit computation is always the slowest, this is because, before the first run, the function gets compiled.
+In the following boxplot we can see the performance of each algorithm. Note how the first jit computation is always the slowest, this is because, before the first run, the function gets compiled and this requires time.
 
 ![image info](./results.png)
 

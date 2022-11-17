@@ -350,7 +350,7 @@ $$ N \approx \hat{N} = \it{M}(A_{n}, \alpha^n) $$
 
 $$A_{n-1}= \frac{A_{n} - \hat{N}(1-\alpha^{STEP\_SIZE})}{\alpha^{STEP\_SIZE}} $$
 
-In layman terms this is basically equivalent to an increase in the trust given to the model prediction. We tested with $$STEP\_SIZE=1.5$$
+In layman's terms this is basically equivalent to an increase in the trust given to the model prediction. We tested with $$STEP\_SIZE=1.5$$
 
 This image generating process can be slow, this is because the model has to be applied over and over again in sequence. Is possible to reduce the numbers of steps at the expense of image quality. Let's consider the maximum $$\alpha^n$$ presented to the model in training (in our case $$\alpha=0.99$$ and $$n_{max}=500$$). Chosen a new number of steps, called $$n'_{max}$$, is possible to calculate the new needed corresponding $$\alpha'$$ as:
 
