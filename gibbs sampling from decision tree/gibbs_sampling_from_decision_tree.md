@@ -68,7 +68,7 @@ We will use this technique to generate tabular data, the chosen dataset is the
 [Concrete Compressive Strength Data Set](https://archive.ics.uci.edu/ml/datasets/Concrete+Compressive+Strength). 
 
 Let's look at a pair plot of the data:
-![image info](./pairplot%20original.png)
+![image info](./pairplot_original.png)
 As we can se the data are a mixture of discrete and continuous distributions.
 
 With this function we split the data $$X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$$ in a train $$X_{train} = \{(x_{1,i},...,x_{n,i})\}_{1,...,q}$$ and a test set $$X_{test}= \{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$ (with $$t+q =k$$) and generate the models: 
