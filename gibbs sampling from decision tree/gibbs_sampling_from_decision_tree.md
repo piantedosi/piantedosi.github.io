@@ -142,5 +142,10 @@ As we can see around 10 sweeps of the Gibbs sampling process the generative mode
 
 ## The sampling process visualized.
 In orange the real data and in blue the generated data
-<img src="pairplot3.gif" />
+<img src="./pairplot3.gif" />
+
+![Alt Text](./pairplot3.gif)
+
+![Alt Text](https://github.com/piantedosi/piantedosi.github.io/blob/main/gibbs%20sampling%20from%20decision%20tree/pairplot3.gif?raw=true)
+
 [back home](https://piantedosi.github.io/)
