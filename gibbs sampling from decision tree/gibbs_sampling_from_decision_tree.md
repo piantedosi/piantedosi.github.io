@@ -113,7 +113,7 @@ def models_creators(df, n_estimators=100, test_size = 0.5):
   ```
 The training of the model is a simple matter of running this function.
 
-In this loop we sample, from the empirical marginal distribution, a new dataset, $$\hat{X} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$, as big as the test set.
+In this loop we sample, from the empirical marginal distribution, a new dataset, $$\hat{X} = \{(\hat{x}_{1,i},...,\hat{x}_{n,i})\}_{1,...,t}$$, as big as the test set.
 ```py
 samples = list()
 for s in range(515):
@@ -142,7 +142,7 @@ We will also use this adversarial model to calculate how many sweeps are needed 
 
 ## Adversarial modelling
 
-Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $$\hat{X} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$ and the test dataset $$X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. We will model the new dataset with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to $$1$$, means that the datasets are very distinguishable, a low accuracy, close to $$0.5$$, means that the datasets are undistinguishable.
+Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $$\hat{X} = \{(\hat{x}_{1,i},...,\hat{x}_{n,i})\}_{1,...,t}$$ and the test dataset $$X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. We will model the new dataset with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to $$1$$, means that the datasets are very distinguishable, a low accuracy, close to $$0.5$$, means that the datasets are undistinguishable.
 
 In the next plot we see how the adversarial accuracy decreases as the number of sweeps increases. 
 
