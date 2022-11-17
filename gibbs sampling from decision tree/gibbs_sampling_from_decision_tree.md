@@ -9,9 +9,13 @@ classes: wide
 
 # Gibbs sampling and generative models
 Gibbs sampling is a technique native to Bayesian statistics, it can be used to sample from a complex, unknow n-dimensional distribution, usually called *joint distribution*, $$f(x_1,...,x_n)$$, using simpler and known *marginal distributions*:
-$$ f(x_1|x_1,x_2,....x_n) $$
+
+$$ f(x_1|x_1,x_2,....x_n), $$
+
 $$ f(x_2|x_1,x_3....x_n) $$
+
 $$...$$
+
 $$ f(x_n|x_1,x_2....x_{n-1}) $$
 
 The algorithm is a simple loop on the marginal distributions until convergence.
@@ -46,6 +50,7 @@ This algorithm is particularly useful in Bayesian statistics where the joint dis
 The key observation is that any supervised model can be transformed in a marginal distribution using bootstrapping. Let's take a set of $$k$$ samples coming from $$f(x_1,...,x_n)$$ called $$X$$:
 
 $$ X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$$
+
 $$ (x_{1,i},...,x_{n,i}) \sim f(x_1,...,x_n)~~~\forall i=1,...,k$$
 
 The process of bootstrapping consist in training a multitude of models on different dataset sampled with replacement from $$X$$. Suppose we trained $$m$$ different models for each variable $$n$$ $$\bf{M}$$ $$=\{M_{i,j}\}_{\substack{\text{i=1,...,n} \\ \text{j=1,...,m}}}$$. 
@@ -53,8 +58,11 @@ The process of bootstrapping consist in training a multitude of models on differ
 Let's focus on a single variable for example $$x_1$$, we have $$m$$ different models to predict this $$x_1$$ using $$x_2,x_3,...,x_n$$ therefore given some fixed $$x_2,x_3,...,x_n$$ we will have a set of $$m$$ different prediction for $$x_1$$. 
 
 $$\hat{x}_{1,1} = M_{1,1}(x_2,x_3,...,x_n)$$
+
 $$\hat{x}_{1,2} = M_{1,2}(x_2,x_3,...,x_n)$$
+
 $$...$$
+
 $$\hat{x}_{1,n} = M_{1,1}(x_2,x_3,...,x_n)$$
 
 These $$\{\hat{x}_{1,j}\}_{j=1,...,m}$$ give us an estimate for the marginal distribution, we will call it the **empirical marginal distribution**. This has the advantage that we can sample from it and this is true for all variables $$x_1,...,x_n$$.
@@ -138,13 +146,17 @@ In the next plot we see how the adversarial accuracy decreases al the number of 
 
 ![image info](./adversarial.png)
 
-As we can see around 10 sweeps of the Gibbs sampling process the generative model has reached plateau in the data generation ability.
+As we can see around 10 sweeps of the Gibbs sampling process the generative model has reached a plateau in the data generation ability.
 
 ## The sampling process visualized.
 In orange the real data and in blue the generated data
+
+esttsete
 <img src="./pairplot3.gif" />
 
 ![Alt Text](./pairplot3.gif)
+
+testsetsetset
 
 ![Alt Text](https://github.com/piantedosi/piantedosi.github.io/blob/main/gibbs%20sampling%20from%20decision%20tree/pairplot3.gif?raw=true)
 
