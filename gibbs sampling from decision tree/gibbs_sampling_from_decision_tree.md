@@ -8,7 +8,7 @@ classes: wide
 ---
 
 # Gibbs sampling and generative models
-Gibbs sampling is a technique native to Bayesian statistics, it can be used to sample from a complex, unknow n-dimensional distribution, usually called *joint distribution*, $f(x_1,...,x_n)$, using simpler and known *marginal distributions*:
+Gibbs sampling is a technique native to Bayesian statistics, it can be used to sample from a complex, unknow n-dimensional distribution, usually called *joint distribution*, $$f(x_1,...,x_n)$$, using simpler and known *marginal distributions*:
 $$ f(x_1|x_1,x_2,....x_n) $$
 $$ f(x_2|x_1,x_3....x_n) $$
 $$...$$
@@ -20,49 +20,44 @@ The algorithm is a simple loop on the marginal distributions until convergence.
 INPUTS:
 f(x_1|x_2,x_3,...,x_n): marginal distribution 
 f(x_2|x_1,x_3,...,x_n): marginal distribution 
-
 ...
-
 f(x_n|x_1,x_2,...,x_{n-1}): marginal distribution 
 
 BEGIN:
     x_1 := random initialization
     x_2 := random initialization 
-
     ... 
+    x_n := random initialization
 
-    \State x_n := random initialization
     REPEAT:
         x_1 := sampled from f(x_1|x_2,x_3,...,x_n)
         x_2 := sampled from f(x_2|x_1,x_3,...,x_n)
-
         ...
-
         x_n := sampled from f(x_n|x_1,x_2,...,x_{n-1})
     UNTILL {number of sweep reached}
 END
 ```
 
-Under some simple assumptions we can guarantee that the outputs $(x_1,...,x_n)$ will behave as if they come from the joint distribution $f(x_1,...,x_n)$.
+Under some simple assumptions we can guarantee that the outputs $$(x_1,...,x_n)$$ will behave as if they come from the joint distribution $$f(x_1,...,x_n)$$.
 This algorithm is particularly useful in Bayesian statistics where the joint distribution is often intractable, but the marginals are easier. We will explore another use of this tool, the creation of a generative model starting with some simple supervised learning models.
 
 ## Bootstrapping and the empirical marginal distribution
 
-The key observation is that any supervised model can be transformed in a marginal distribution using bootstrapping. Let's take a set of $k$ samples coming from $f(x_1,...,x_n)$ called $X$:
+The key observation is that any supervised model can be transformed in a marginal distribution using bootstrapping. Let's take a set of $$k$$ samples coming from $$f(x_1,...,x_n)$$ called $$X$$:
 
 $$ X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$$
 $$ (x_{1,i},...,x_{n,i}) \sim f(x_1,...,x_n)~~~\forall i=1,...,k$$
 
-The process of bootstrapping consist in training a multitude of models on different dataset sampled with replacement from $X$. Suppose we trained $m$ different models for each variable $n$ $\bf{M}$ $=\{M_{i,j}\}_{\substack{\text{i=1,...,n} \\ \text{j=1,...,m}}}$. 
+The process of bootstrapping consist in training a multitude of models on different dataset sampled with replacement from $$X$$. Suppose we trained $$m$$ different models for each variable $$n$$ $$\bf{M}$$ $$=\{M_{i,j}\}_{\substack{\text{i=1,...,n} \\ \text{j=1,...,m}}}$$. 
 
-Let's focus on a single variable for example $x_1$, we have $m$ different models to predict this $x_1$ using $x_2,x_3,...,x_n$ therefore given some fixed $x_2,x_3,...,x_n$ we will have a set of $m$ different prediction for $x_1$. 
+Let's focus on a single variable for example $$x_1$$, we have $$m$$ different models to predict this $$x_1$$ using $$x_2,x_3,...,x_n$$ therefore given some fixed $$x_2,x_3,...,x_n$$ we will have a set of $$m$$ different prediction for $$x_1$$. 
 
 $$\hat{x}_{1,1} = M_{1,1}(x_2,x_3,...,x_n)$$
 $$\hat{x}_{1,2} = M_{1,2}(x_2,x_3,...,x_n)$$
 $$...$$
 $$\hat{x}_{1,n} = M_{1,1}(x_2,x_3,...,x_n)$$
 
-These $\{\hat{x}_{1,j}\}_{j=1,...,m}$ give us an estimate for the marginal distribution, we will call it the **empirical marginal distribution**. This has the advantage that we can sample from it and this is true for all variables $x_1,...,x_n$.
+These $$\{\hat{x}_{1,j}\}_{j=1,...,m}$$ give us an estimate for the marginal distribution, we will call it the **empirical marginal distribution**. This has the advantage that we can sample from it and this is true for all variables $$x_1,...,x_n$$.
 
 To keep thing simple we will use as supervised model some simple decision three. Threfore the process of bootstrapping will give us a set of random forest predictors, one for each variable. We are not interested in the prediction of the random forests, but in the distribution of the prediction of each single base predictor.
 
@@ -76,7 +71,7 @@ Let's look at a pair plot of the data:
 ![image info](./pairplot%20original.png)
 As we can se the data are a mixture of discrete and continuous distributions.
 
-With this function we split the data $X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$ in a train $X_{train} = \{(x_{1,i},...,x_{n,i})\}_{1,...,q}$ and a test set $X_{test}= \{(x_{1,i},...,x_{n,i})\}_{1,...,t}$ (with $t+q =k$) and generate the models: 
+With this function we split the data $$X = \{(x_{1,i},...,x_{n,i})\}_{1,...,k}$$ in a train $$X_{train} = \{(x_{1,i},...,x_{n,i})\}_{1,...,q}$$ and a test set $$X_{test}= \{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$ (with $$t+q =k$$) and generate the models: 
 
 ```py
 def models_creators(df, n_estimators=100, test_size = 0.5):
@@ -108,7 +103,7 @@ def models_creators(df, n_estimators=100, test_size = 0.5):
   ```
 The training of the model is a simple matter of running this function.
 
-In this loop we sample, from the empirical marginal distribution, a new dataset, $\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$, as big as the test set.
+In this loop we sample, from the empirical marginal distribution, a new dataset, $$\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$, as big as the test set.
 ```py
 samples = list()
 for s in range(515):
@@ -137,7 +132,7 @@ We will also use this adversarial model to calculate how many sweeps are needed 
 
 ## Adversarial modelling
 
-Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$ and the test dataset $X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. This new dataset will be model with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to 1, means that the datasets are very distinguishable, a low accuracy, close to 0.5, means that the datasets are undistinguishable.
+Adversarial modelling is a technique that can be used to check if two different dataset are sampled from the same joint distribution. In our case we want to compare the generated dataset, $$\hat{X}_{test} = \{(\hat(x)_{1,i},...,x_{n,i})\}_{1,...,t}$$ and the test dataset $$X_{test}=\{(x_{1,i},...,x_{n,i})\}_{1,...,t}$$. To do this we construct a new dataset merging together these two dataset and adding a variable, which we will try to predict in a supervised learning process. This new variable will signal the origin of the specific data point. This new dataset will be model with the standard playbook of a supervised learning binary classification problem. The accuracy of this prediction will be the metric used to judge if the different dataset are sampled from the same joint distribution. An high accuracy, close to 1, means that the datasets are very distinguishable, a low accuracy, close to 0.5, means that the datasets are undistinguishable.
 
 In the next plot we see how the adversarial accuracy decreases al the number of sweeps increases. 
 
