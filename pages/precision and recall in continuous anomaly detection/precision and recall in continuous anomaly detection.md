@@ -9,7 +9,7 @@ classes: wide
 
 # Introduction of the problem
 
-In this post we will explore the implication of using the standard metrics for a binary classification problem, in the context of continuous timeseries anomaly detection. The metrics we are interested in are *precision* ($$p$$), *recall* ($$r$$), and their harmonic mean *f1-score*. To define these metrics we first need to introduce some definitions:
+In this post we will explore the implication of using the standard metrics for a binary classification problem, in the context of continuous timeseries anomaly detection. The metrics we are interested in are: *precision* ($$p$$), *recall* ($$r$$), and their harmonic mean *f1-score*. To define these metrics we first need to introduce some definitions:
 
    - $$TP$$: True positive, the number of instances where the classifier returns *true* and the real value is *true*.
    - $$FP$$: False positive, the number of instances where the classifier returns *true* and the real value is *false*.
@@ -24,23 +24,23 @@ $$Recall = r = \frac{TP}{TP+FN}$$
 
 $$F1~score = 2 \frac{p~r}{p+r}$$
 
-These metrics are typically used in the binary classification context. There The objective is, given some input variables to predict a binary outcome. However they can easily be adapted, and often are, for other objectives.
+These metrics are typically used in the binary classification context. In that context the objective is, given some input variables, to predict a binary outcome. However they can easily be adapted, and often are, for other objectives.
 
-Let's consider the context of continuous anomaly detection system. Here we have a continuous timeseries and we want to find, often in an online manner, if some points in this timeseries is in some way anomalous. The usual way, in which the $$TP$$, $$FP$$, $$FN$$ and $$TN$$ are defined on timeseries, is by fixing a *time window* before the anomaly in which the given data are considered positive. The choice of this *time window* is often arbitrary, this makes difficult to interpret the performance of an algorithm. 
+Let's consider the context of continuous anomaly detection system. Here we have a continuous timeseries and we want to find, often in an online manner, if some points, in this timeseries, are in some way anomalous. The standard definitions of $$TP$$, $$FP$$, $$FN$$ and $$TN$$ on timeseries are given by fixing a *time window*, before the anomaly, where the given data points are considered positive. This choice of *time window* is often arbitrary and this makes difficult to interpret the performance of an algorithm. 
 
-In the following image the positive timestep, inside the *time window*, are in the green region and the other are considered negative.
+In the following image the positives timestep, inside the *time window*, are in the green region and the other are considered negatives.
 ![image info](./example_raw.png)
 
 
 ## Example of the problem 
-For this practical example we have build, using Pytorch, an autoencoder on the [turbofan dataset](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/). For the training set only the segments of the timeseries 20 timesteps before the failure were used. In this way the reconstruction error of the autoencoder can be used as an anomaly score. Furthermore a threshold was calculated as the 95th percentile of the reconstruction error on a portion of the training set. The anomaly detector gives us a probable anomaly each time the reconstruction error is above the threshold. In this context we can easily define $$TP$$, $$FP$$, $$FN$$ and $$TN$$ in the way described above.
+For this practical example we have build, using Pytorch, an autoencoder on the [turbofan dataset](https://ti.arc.nasa.gov/tech/dash/groups/pcoe/prognostic-data-repository/). For the training set only the segments 20 timesteps before the failure were used. In this way the autoencoder reconstruction error can be used as an anomaly score. Furthermore a threshold was calculated as the $$95th$$ percentile of the reconstruction error on a portion of the training set. The anomaly detector gives us a probable anomaly each time the reconstruction error is above this threshold. In this context we can easily define $$TP$$, $$FP$$, $$FN$$ and $$TN$$ in the way described above.
 ![image info](./example_disc.drawio.png)
 
 To understand the problem let's look at how these metrics change with the changing of the *time window*
 
-<img src="./prec.png" width=30% height=30%>
-<img src="./rec.png" width=30% height=30%>
-<img src="./f1.png" width=30% height=30%>
+![test image size](./prec.png){:height="30%" width="30%"}
+![test image size](./rec.png){:height="30%" width="30%"}
+![test image size](./f1.png){:height="30%" width="30%"}
 
 Form these graphs we can deduce three thing:
    - The precision increases as the *time window* increases. This is expected, since more timesteps will be considered positive they will be more easily identified.
