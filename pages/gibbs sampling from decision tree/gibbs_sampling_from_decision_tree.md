@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Diffusion model"
+title: "Gibbs sampling from decision tree"
 permalink: /gibbs_sampling_from_decision_tree/
 theme: jekyll-theme-architect
 classes: wide

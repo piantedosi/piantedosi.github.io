@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Diffusion model"
+title: "Diffusion model patch creation"
 permalink: /diffusion_model_patch_creation/
 theme: jekyll-theme-architect
 classes: wide
@@ -71,7 +71,7 @@ def patch_creation_vec(images, out, out_1):
 ```
 Note how the guvectorized functions does not have an output. The output is overwritten on one of the input arguments. This is the version used for the diffusion model. But there is a faster (and easier implementation).
 
-## The faster way
+## The fastest way
 The reason why the jitted version was slow is that we forced the compiler to compile a function that process just one image at the time. If we move the dataset loop inside the JIT compiled function the situation improves dramatically. This version can process 421709 images per second.
 
 ``` python
