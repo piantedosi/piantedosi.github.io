@@ -38,16 +38,18 @@ For this practical example we have build, using Pytorch, an autoencoder on the [
 
 To understand the problem let's look at how these metrics change with the changing of the *time window*
 
-![test image size](./prec.png){:height="30%" width="30%"}
-![test image size](./rec.png){:height="30%" width="30%"}
-![test image size](./f1.png){:height="30%" width="30%"}
+![test image size](./prec.png){:height="33%" width="33%"}
+![test image size](./rec.png){:height="33%" width="33%"}
+![test image size](./f1.png){:height="33%" width="33%"}
 
-Form these graphs we can deduce three thing:
+Form these graphs we can deduce three things:
    - The precision increases as the *time window* increases. This is expected, since more timesteps will be considered positive they will be more easily identified.
-   - The recall decreases the *time window* increases. This is expected since more timesteps will be considered positive finding them all will be harder.
-   - The f1 has a maximum around a *time window* of 25.
+  
+   - The recall decreases as the *time window* increases. This is expected since more timesteps will be considered positive finding them all will be harder.
 
-The last fact is difficult to interpret. The *time window* size is not some hyperparameter of the machine learning algorithm. It is an hyperparameter of the metric! Choosing the values that get the best result seams wrong. It would be akin to changing the coverage of a confidence interval until it covers the result we are looking for. 
+   - The f1-score has a maximum around a *time window* of 25.
+
+The last fact is difficult to interpret. The *time window* size is not some hyperparameter of the machine learning algorithm. It is an hyperparameter of the metric! Choosing the values that get the best result seams just plain wrong. It would be akin to changing the coverage of a confidence interval until it covers the result we are looking for. 
 
 Furthermore if we do a sanity check on the results we get that around a *time window* of 25 we have:
 
@@ -57,17 +59,17 @@ $$Recall \sim  0.6$$
 
 $$F1~score \sim  0.62$$
 
-A quick look at the plots (figure below) gives us a completely different story. Every single anomaly is correctly identified well before machine failure. Therefore the recall should, logically, be $$1$$. Meanwhile the precision should not be this high, since we clearly have many false positives. The problem is that they are obscured by the many true positives near the failure that fall inside the *time window*. If we had to stop production each time we have a false positive this is unacceptable and the high precision is clearly misleading.
+A quick look at the plots (figure below) gives us a completely different story. Every single anomaly is correctly identified, well before machine failure. Therefore the recall should, logically, be $$1$$. Meanwhile the precision should not be this high, since we clearly have many false positives. The problem is that these are obscured by the many true positives, near the failure, which fall inside the *time window*. If we had to stop production each time we had a false positive this model is unacceptable and the relatively high precision is clearly misleading.
 ![image info](./autoencoder.png)
 
 These drawbacks are the reason why, whenever the accurate time of failure is know, the metric of RUL (Remaining Useful Life) is often used. However, we are not interested in the RUL; we are interested in a correct way to express precision and recall in this context.
 
-## the solution 
-The solution to this problem comes from to facts. The first is that in a continuous contexts the true negatives are meaningless and the second is that they are not used in the definitions of precision and recall. Let's redefine:
+## The solution 
+The solution, to this problem, comes from two facts. The first is that in a continuous contexts the true negatives are meaningless and the second is that they are, anyway, not used in the definitions of precision and recall. Let's redefine:
 
    - $$TP$$: True positive, the number of instances where the anomaly score goes over the threshold and *does not* come back under until failure.
    - $$FP$$: False positive, the number of instances where the anomaly score goes over the threshold and *does* come back under before failure.
-   - $$FN$$: False negative, the number of instances where the anomaly score *does not* go over the threshold and when there is a failure.
+   - $$FN$$: False negative, the number of instances where the anomaly score *does not* go over the threshold when there is a failure.
    - $$TN$$: True negative, each instance where the anomaly score is under the threshold and there is no failure, but they do not matter.
 
 ![image info](./examples_continuous_context.png)
@@ -80,7 +82,7 @@ $$Recall = 1$$
 
 $$F1~score = 0.18$$
 
-These results give us a way better picture of the real performance of the anomaly detector. For example the precision tells us that, if we where to stop the machine every time we get an anomaly, we would be stopping the machine 10 times to get a single real anomaly. Meanwhile the recall tells us that we are sure to intercept basically all the failure. 
+These results give us a way better picture of the real performance of the anomaly detector. For example the precision tells us that, if we where to stop the machine every time we get an anomaly, we would be stopping the machine 10 times to get a single real anomaly. Meanwhile the recall tells us that we are sure to intercept basically all the failure. This is clearly more in line with the real results of the algorithm, as seen in the above plots.
 
 The code with the autoencoder can be found at [back home](https://github.com/piantedosi/autoencoder_anomaly_detection)
 
