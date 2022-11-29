@@ -82,7 +82,7 @@ $$Recall = 1$$
 
 $$F1~score = 0.18$$
 
-These results give us a way better picture of the real performance of the anomaly detector. For example the precision tells us that, if we where to stop the machine every time we get an anomaly, we would be stopping the machine 10 times to get a single real anomaly. Meanwhile the recall tells us that we are sure to intercept basically all the failure. This is clearly more in line with the real results of the algorithm, as seen in the above plots.
+These results give us a way better picture of the real performance of the anomaly detector. For example the precision tells us that, if we where to stop the machine every time we get an anomaly, we would be stopping the machine 10 times to get a single real anomaly. Meanwhile the recall tells us that we are sure to intercept basically all the failures. This is clearly more in line with the real results of the algorithm, as seen in the above plots.
 
 The code with the autoencoder can be found [here](https://github.com/piantedosi/autoencoder_anomaly_detection)
 
