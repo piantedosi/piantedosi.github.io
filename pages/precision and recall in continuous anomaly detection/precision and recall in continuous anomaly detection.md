@@ -38,9 +38,9 @@ For this practical example we have build, using Pytorch, an autoencoder on the [
 
 To understand the problem let's look at how these metrics change with the changing of the *time window*
 
-![test image size](./prec.png){:height="33%" width="33%"}
-![test image size](./rec.png){:height="33%" width="33%"}
-![test image size](./f1.png){:height="33%" width="33%"}
+![test image size](./prec.png){:height="30%" width="30%"}
+![test image size](./rec.png){:height="30%" width="30%"}
+![test image size](./f1.png){:height="30%" width="30%"}
 
 Form these graphs we can deduce three things:
    - The precision increases as the *time window* increases. This is expected, since more timesteps will be considered positive they will be more easily identified.
