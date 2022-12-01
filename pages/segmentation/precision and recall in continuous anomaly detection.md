@@ -95,7 +95,7 @@ def valid_aug():
 
 ## PyTorch dataset
 
-We will create a PyTorch dataset that will take care of image preprocessing and augmentation. We will also define the dataloaders to load the data at traninig time
+We will create a PyTorch dataset that will take care of image preprocessing and augmentation. We will also define the dataloaders to load the data at training time
 
 ```py
 class SegmentationDataset(Dataset):
