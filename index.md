@@ -12,3 +12,6 @@ layout: default
 ## Anomaly Detection:
  - [A note on precision and recall in continuous contexts](https://piantedosi.github.io/precision_and_recall_in_continuous_anomaly_detection/)
 
+
+## Image Segmentation
+ -[Simple image segmentation with Pytorch](https://piantedosi.github.io/segmentation/)
