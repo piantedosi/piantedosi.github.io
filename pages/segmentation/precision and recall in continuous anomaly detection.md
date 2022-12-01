@@ -9,10 +9,10 @@ classes: wide
 
 # Introduction to segmentation
 
-Image segmentation is the task of dividing, a given image, in multiple "zones". Each zone corresponds to a different class, for example: sky, tree, road and building can all be different class. The segmented image is often called *mask* or ground truth. In other terms we can thought a segmentation problems as a multiclass classification problem applied to each pixel in an image.
+Image segmentation is the task of dividing, a given image, in multiple "zones". Each zone corresponds to a different class, for example: sky, tree, road and building can all be different class. The segmented image is often called *mask* or ground truth. In other terms we can thought a segmentation problem as a multiclass classification problem applied to each pixel in an image.
 ![image info](./example.png)
 
-In this post we will explore how to build an image segmentation algorithm in PyTorch. The dataset that we will use is the [Scene Understanding Datasets](http://dags.stanford.edu/projects/scenedataset.html). In this dataset there are 715 different images with relative mask regions. Each pixel can belong to eight different class: sky, tree, road, grass, water, building, mountain, or foreground object plus a special class for unknow classification.
+In this post we will explore how to build an image segmentation algorithm in PyTorch. The dataset that we will use is the [Scene Understanding Datasets](http://dags.stanford.edu/projects/scenedataset.html). In this dataset there are 715 different images with relative mask regions. Each pixel can belong to eight different classes: sky, tree, road, grass, water, building, mountain, or foreground object plus a special class for unknow classification.
 ![image info](./image_examples.png)
 
 # Some data preparation
@@ -34,7 +34,7 @@ def get_images_from_id(idx:int, df=df):
     return image, mask
 ```
 
-Right now the masks are encoded with a single channel, and each class is indicated by a different integer. To construct an efficient segmentation algorithm we preferer the *one hot encoding* where each class has his own channel, and the belonging to that class is indicated by a 1 or a 0. Therefore we need two function, one to transform mask in the one hot encoding and one to get back.
+Right now the masks are encoded with a single channel, and each class is indicated by a different integer. To construct an efficient segmentation algorithm we preferer the *one hot encoding* where each class has his own channel, and the belonging to that class is indicated by a 1 or a 0 in the specific channel. Therefore we need two function, one to transform mask in the one hot encoding and one to get back.
 
 ```py
 def one_hot_encode(mask):
@@ -65,13 +65,13 @@ def one_hot_decode(mask):
     return out
 ```
 
-After the test train split we have there dataset: 
+After the test, train and validation split we have there dataset: 
 
 - train_df size: 457
 - valid_df size: 115
 - test_df size: 143
 
-The train dataset will be augmented with the Albumentation library, the test and validation dataset will just be resized
+The train dataset will be augmented with the Albumentation library, the test and validation dataset will just be resized.
 
 ```python
 def train_aug():
@@ -92,10 +92,12 @@ def valid_aug():
         A.Resize(HEIGHT, WITDH)
     ])
 ```
+Some example of augmentations:
+![image info](./data_aug_examples.png)
 
 ## PyTorch dataset
 
-We will create a PyTorch dataset that will take care of image preprocessing and augmentation. We will also define the dataloaders to load the data at training time
+We will create a PyTorch dataset that will take care of image preprocessing and augmentation. We will also define the dataloaders to load the data at training time.
 
 ```py
 class SegmentationDataset(Dataset):
@@ -131,7 +133,7 @@ testloader = DataLoader(testset, batch_size= BATCH_SIZE)
 ```
 
 ## The model code
-The model we will use is a U-net imported from the segmentation library of PyTorch
+The model we will use is a U-net imported from the segmentation library of PyTorch.
 
 ```py 
 import segmentation_models_pytorch as smp
@@ -209,6 +211,7 @@ def eval_f( dataloader, model, loss_f):
 ```
 
 Now let's look at the training loop.
+
 ```py
 opt = torch.optim.Adam(model.parameters(), lr = LR)
 loss_f = nn.CrossEntropyLoss()
