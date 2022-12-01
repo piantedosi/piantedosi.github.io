@@ -14,4 +14,4 @@ layout: default
 
 
 ## Image Segmentation
- -[Simple image segmentation with Pytorch](https://piantedosi.github.io/segmentation/)
+ - [Simple image segmentation with Pytorch](https://piantedosi.github.io/segmentation/)
