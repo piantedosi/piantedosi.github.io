@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Diffusion model"
+description: "Generate new MNIST digits by training a model to reverse a gradual noising process."
 permalink: /diffusion_model/
 theme: jekyll-theme-architect
 classes: wide

@@ -14,21 +14,48 @@
 {% seo %}
 
     {% include head-custom.html %}
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [['$$', '$$'], ['\\(', '\\)']],
+          displayMath: [['\\[', '\\]']]
+        },
+        svg: { fontCache: 'global' },
+        startup: {
+          pageReady() {
+            return MathJax.startup.defaultPageReady().then(function () {
+              document.querySelectorAll('#main-content p').forEach(function (paragraph) {
+                var math = paragraph.querySelector('mjx-container');
+                if (!math) return;
+                var leftover = paragraph.textContent.replace(math.textContent, '').trim();
+                if (leftover !== '') return;
+                math.setAttribute('display', 'true');
+              });
+            });
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
   </head>
 
   <body>
     <header>
       <div class="inner">
-        <a href="{{ '/' | absolute_url }}">
-          <h1>{{ site.title | default: site.github.repository_name }}</h1>
-        </a>
-        <h2>{{ site.description | default: site.github.project_tagline }}</h2>
-        {% if site.github.is_project_page %}
-          <a href="{{ site.github.repository_url }}" class="button"><small>View project on</small> GitHub</a>
-        {% endif %}
-        {% if site.github.is_user_page %}
-          <a href="{{ site.github.owner_url }}" class="button"><small>Follow me on</small> GitHub</a>
-        {% endif %}
+        <div class="title-block">
+          <a href="{{ '/' | absolute_url }}">
+            <h1>{{ site.title | default: site.github.repository_name }}</h1>
+          </a>
+          <h2>{{ site.description | default: site.github.project_tagline }}</h2>
+          <svg class="dimension-line" viewBox="0 0 220 16" aria-hidden="true" focusable="false">
+            <line x1="6" y1="8" x2="214" y2="8" stroke="#ffffff" stroke-width="1.5"/>
+            <line x1="6" y1="3" x2="6" y2="13" stroke="#ffffff" stroke-width="1.5"/>
+            <line x1="214" y1="3" x2="214" y2="13" stroke="#ffffff" stroke-width="1.5"/>
+            <line x1="110" y1="4" x2="110" y2="12" stroke="#ffffff" stroke-width="1.5"/>
+            <circle cx="110" cy="8" r="2.2" fill="#ffffff"/>
+          </svg>
+        </div>
       </div>
     </header>
 
@@ -39,13 +66,29 @@
         </section>
 
         <aside id="sidebar">
-          <p> <a href="https://piantedosi.github.io/"> Home </a>.</p>
+          <nav class="site-nav" aria-label="Projects">
+            <p><a href="{{ '/' | relative_url }}">Home</a></p>
+
+            <p class="nav-group">{% include icon-wave.html class="nav-icon" %} Generative models</p>
+            <ul>
+              <li>{% include post-link.html permalink="/diffusion_model/" label="Diffusion model" %}</li>
+              <li>{% include post-link.html permalink="/diffusion_model_patch_creation/" label="Patches for vision transformers" %}</li>
+              <li>{% include post-link.html permalink="/gibbs_sampling_from_decision_tree/" label="Gibbs sampling and decision trees" %}</li>
+            </ul>
+
+            <p class="nav-group">{% include icon-curve.html class="nav-icon" %} Anomaly detection</p>
+            <ul>
+              <li>{% include post-link.html permalink="/precision_and_recall_in_continuous_anomaly_detection/" label="Precision and recall in continuous contexts" %}</li>
+            </ul>
+
+            <p class="nav-group">{% include icon-grid.html class="nav-icon" %} Image segmentation</p>
+            <ul>
+              <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
+            </ul>
+          </nav>
         </aside>
       </div>
     </div>
 
   </body>
 </html>
-
-<script src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML" type="text/javascript"></script>
-

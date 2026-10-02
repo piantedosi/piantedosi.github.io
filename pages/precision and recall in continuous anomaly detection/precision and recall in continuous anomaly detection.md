@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Precision and recall in continuous anomaly detection"
+description: "How precision and recall change when anomalies are stretches of a signal, not single points."
 permalink: /precision_and_recall_in_continuous_anomaly_detection/
 theme: jekyll-theme-architect
 classes: wide

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Segmentation"
+description: "Label every pixel of a scene with a small PyTorch segmentation model."
 permalink: /segmentation/
 theme: jekyll-theme-architect
 classes: wide

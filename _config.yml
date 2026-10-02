@@ -1,3 +1,5 @@
 theme: jekyll-theme-architect
 title: A repo for my thoughts
 description: A place for my projects.
+plugins:
+  - jekyll-relative-links

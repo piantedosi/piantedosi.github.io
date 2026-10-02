@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Diffusion model patch creation"
+description: "Cut each training image into patches for a vision transformer, and make that step much faster."
 permalink: /diffusion_model_patch_creation/
 theme: jekyll-theme-architect
 classes: wide

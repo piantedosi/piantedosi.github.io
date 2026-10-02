@@ -1,6 +1,7 @@
 ---
 layout: default
 title: "Gibbs sampling from decision tree"
+description: "Draw new tabular samples with a Gibbs sampler whose conditionals come from decision trees."
 permalink: /gibbs_sampling_from_decision_tree/
 theme: jekyll-theme-architect
 classes: wide

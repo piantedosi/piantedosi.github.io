@@ -1,0 +1,7 @@
+{% assign note = site.pages | where: "permalink", include.permalink | first %}
+<a class="post-link" href="{{ note.url | default: include.permalink | relative_url }}">
+  <span class="post-name">{{ include.label | default: note.title }}</span>
+  {% if note.description %}
+    <span class="post-tip" role="tooltip">{{ note.description }}</span>
+  {% endif %}
+</a>
