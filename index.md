@@ -27,3 +27,9 @@ layout: default
 <ul class="post-list">
   <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
 </ul>
+
+<h2>{% include icon-nodes.html %} Tools</h2>
+
+<ul class="post-list">
+  <li>{% include post-link.html permalink="/mcp-linkedin-jobs/" label="MCP server for LinkedIn jobs" %}</li>
+</ul>

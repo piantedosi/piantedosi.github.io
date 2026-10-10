@@ -48,13 +48,15 @@
             <h1>{{ site.title | default: site.github.repository_name }}</h1>
           </a>
           <h2>{{ site.description | default: site.github.project_tagline }}</h2>
-          <svg class="dimension-line" viewBox="0 0 220 16" aria-hidden="true" focusable="false">
-            <line x1="6" y1="8" x2="214" y2="8" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="6" y1="3" x2="6" y2="13" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="214" y1="3" x2="214" y2="13" stroke="#ffffff" stroke-width="1.5"/>
-            <line x1="110" y1="4" x2="110" y2="12" stroke="#ffffff" stroke-width="1.5"/>
-            <circle cx="110" cy="8" r="2.2" fill="#ffffff"/>
-          </svg>
+          <div class="dimension-line" aria-hidden="true">
+            <svg viewBox="0 0 400 16" preserveAspectRatio="none" focusable="false">
+              <line x1="6" y1="8" x2="394" y2="8" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+              <line x1="6" y1="3" x2="6" y2="13" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+              <line x1="394" y1="3" x2="394" y2="13" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+              <line x1="200" y1="4" x2="200" y2="12" stroke="#ffffff" stroke-width="1.5" vector-effect="non-scaling-stroke"/>
+            </svg>
+            <span class="dimension-dot"></span>
+          </div>
         </div>
       </div>
     </header>
@@ -84,6 +86,11 @@
             <p class="nav-group">{% include icon-grid.html class="nav-icon" %} Image segmentation</p>
             <ul>
               <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
+            </ul>
+
+            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Tools</p>
+            <ul>
+              <li>{% include post-link.html permalink="/mcp-linkedin-jobs/" label="MCP server for LinkedIn jobs" %}</li>
             </ul>
           </nav>
         </aside>
