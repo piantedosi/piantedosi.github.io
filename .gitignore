@@ -3,3 +3,8 @@ _site
 Gemfile.lock
 *.gem
 .jekyll-cache
+build/
+
+# Staged from the dag-explorer checkout by games/causal_dag_discovery_game/build.py
+games/causal_dag_discovery_game/main.py
+games/causal_dag_discovery_game/dag.py

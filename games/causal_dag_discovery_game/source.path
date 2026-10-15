@@ -1,0 +1,3 @@
+# Checkout that owns the pygame game. Override with the DAG_EXPLORER environment variable.
+# A Linux path is translated with `wsl wslpath` when this script runs on Windows.
+/home/ser/dag_explorer

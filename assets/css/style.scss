@@ -218,6 +218,44 @@ blockquote {
   border: 1px solid #d5e4f2;
 }
 
+.run-viewer {
+  margin: 0.4em 0 1.6em;
+}
+
+.run-viewer-menu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.run-viewer-menu button {
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.2;
+  color: #243044;
+  background: #fff;
+  border: 1px solid #d5e4f2;
+  border-radius: 2px;
+  padding: 0.4em 0.8em;
+  cursor: pointer;
+}
+
+.run-viewer-menu button:hover {
+  border-color: #2e7bcf;
+}
+
+.run-viewer-menu button[aria-pressed="true"] {
+  color: #fff;
+  background: #2e7bcf;
+  border-color: #2e7bcf;
+}
+
+#main-content .run-viewer img {
+  margin-top: 0.85em;
+  margin-bottom: 0;
+}
+
 #main-content table th,
 #main-content table td {
   padding: 6px 10px;
