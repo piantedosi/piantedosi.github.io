@@ -7,13 +7,13 @@ theme: jekyll-theme-architect
 classes: wide
 ---
 
-# Brief indtroduction to causal inference and causal DAGs
+# Brief introduction to causal inference and causal DAGs
 
-Causal inference is the branch of statistics that deals with the identification of what will happen to a variable if we change another variable. This may seam trivial but is not. Philosophically speaking we could argue that causal infrerence is the most difficult problem an animal, human, agent, or any other system that has a goal to reach must solve. Knowing the consequences of our actions is fundamental to any goal-seeking behavior. The layman might have heard the expression "correlation is not causation" this is exactly the crux of the problem.
+Causal inference is the branch of statistics that deals with identifying what will happen to a variable if we change another variable. This may seem trivial, but it is not. Philosophically speaking, we could argue that causal inference is the most difficult problem an animal, a human, an agent, or any other system with a goal to reach must solve. Knowing the consequences of our actions is fundamental to any goal-seeking behavior. The layman might have heard the expression "correlation is not causation." This is exactly the crux of the problem.
 
-In statistics the most common way to rapresente the causal relationships between variables is through a causal graph. This consists of a set of nodes, each representing a variable, and a set of edges, each representing a causal relationship between two variables. The edges are directed, the whole graph as no cycles. This structure is called a Directed Acyclic Graph (DAG).
+In statistics, the most common way to represent the causal relationships between variables is through a causal graph. This consists of a set of nodes, each representing a variable, and a set of edges, each representing a causal relationship between two variables. The edges are directed, and the whole graph has no cycles. This structure is called a Directed Acyclic Graph (DAG).
 
-Take a pavement on a day that might rain. Each box is a variable. An arrow means that changing the variable at the tail can change the variable at the head.
+Consider a pavement on a day when it might rain. Each box is a variable. An arrow means that changing the variable at the tail can change the variable at the head.
 
 ![Causal DAG: season affects rain and the sprinkler; both wet the pavement, which makes it slippery](./pavement_dag.png)
 
@@ -22,11 +22,11 @@ Take a pavement on a day that might rain. Each box is a variable. An arrow means
 - **Rain → Wet pavement** and **Sprinkler turned on → Wet pavement.** Rain and the sprinkler are two different ways to wet the ground.
 - **Wet pavement → Slippery pavement.** The water on the pavement is what makes it slippery.
 
-Supose that today is a bright sunny day. The sprinkler is off and the pavement is dry. This is the **factual** state of the world. But what if had previusly turned on the sprinkler? What would have happened? This is a **contrafactual** state of the world.
+Suppose that today is a bright, sunny day. The sprinkler is off and the pavement is dry. This is the **factual** state of the world. But what if we had previously turned on the sprinkler? What would have happened? This is a **counterfactual** state of the world.
 
-The **fundamental problem of causal inference** is the inability to observe both the factual and the contrafactual state of the world at the same time. This makes it impossible to know do actual causal inference without making assumptions.
+The **fundamental problem of causal inference** is the inability to observe both the factual and the counterfactual state of the world at the same time. This makes it impossible to do actual causal inference without making assumptions.
 
-However today we will explore the **other reason** why causal inference is difficult, namely the fact that the possible number of causal DAGs is enormous.
+However, today we will explore the **other reason** causal inference is difficult, namely that the number of possible causal DAGs is enormous.
 
 The precise growth rate for the number of possible causal DAGs with $$n$$ nodes was proven by mathematician Robert W. Robinson in 1973. It is asymptotic to:
 
@@ -34,7 +34,7 @@ $$
 G(n) \sim C \cdot M^{n} \cdot 2^{\frac{n(n-1)}{2}}
 $$
 
-To put this super-exponential growth into perspective, here are some examples of the possible number of causal DAGs for some values of $$n$$:
+To put this super-exponential growth into perspective, here is the number of possible causal DAGs for a few values of $$n$$:
 
 $$
 \begin{array}{c|l}
@@ -51,9 +51,9 @@ $$
 
 ## The Causal DAG agent explorer
 
-Undeterred by the size of that space, I built an agent that searches it the same way a human would does. It never sees the hidden DAG. It only proposes edges, freezes nodes to invent counterfactuals, and reads back what the graph does.
+Undeterred by the size of that space, I built an agent that searches it the same way a human would. It never sees the hidden DAG. It only proposes edges, freezes nodes to invent counterfactuals, and reads back what the graph does.
 
-The search is a loop. A language model sits in the **assistant** node and, each turn, has to call one tool. If it does, the **tools** node runs that call and hands the result back, and the assistant goes again. If it replies with text and no tool, a **nudge** tells it to think less and call one tool. After three empty replies the run gives up. The loop ends when the model calls finish and commits the edges it believes are there.
+The search is a loop. A language model sits in the **assistant** node and, each turn, has to call one tool. If it does, the **tools** node runs that call and hands the result back, and the assistant goes again. If it replies with text and no tool, a **nudge** tells it to think less and call one tool. After three empty replies, the run gives up. The loop ends when the model calls finish and commits the edges it believes are there.
 
 ![The agent loop: the assistant calls a tool, is nudged after an empty reply, or stops](./agent_loop.png)
 
@@ -69,10 +69,10 @@ Each run is traced in a local [Langfuse](https://langfuse.com) project. The trac
 
 ## Recorded runs
 
-Each recording is a complete one search. They might have been cut for brevity and viewing pleasure.
+Each recording is one complete search. They might have been cut for brevity and ease of viewing.
 
-You can also try to play the same game and discover a causal DAG from contrafactual data by yourself. 
-At this link you can find the game:
+You can also try the same game and discover a causal DAG from counterfactual data yourself.
+You can find the game at this link:
 [Causal DAG discovery game]({% link pages/causal dag discovery game/causal_dag_discovery_game.md %})
 
 <div class="run-viewer">

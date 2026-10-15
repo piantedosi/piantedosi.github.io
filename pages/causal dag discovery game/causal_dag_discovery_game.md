@@ -11,7 +11,7 @@ classes: wide
 
 Try your hand at causal discovery! In this game, you can attempt to uncover the hidden structure of a causal DAG yourself using counterfactual data.
 
-For a fair challenge (playing in the same conditions as the AI agent), play with "easy mode" turned off. The game begins with just two nodes and becomes more complex as you advance.
+For a fair challenge (playing under the same conditions as the AI agent), play with "easy mode" turned off. The game begins with just two nodes and becomes more complex as you advance.
 
 **How to play:**
 - Node values depend on their parent nodes.
