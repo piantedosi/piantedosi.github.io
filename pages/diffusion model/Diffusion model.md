@@ -5,6 +5,7 @@ description: "Generate new MNIST digits by training a model to reverse a gradual
 permalink: /diffusion_model/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: noising.png
 ---
 
 # Diffusion model

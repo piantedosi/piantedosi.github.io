@@ -5,6 +5,7 @@ description: "An AI agent, based on LangChain, that plays the causal DAG discove
 permalink: /causal_dag_agent_explorer/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: agent_loop.png
 ---
 
 # Brief introduction to causal inference and causal DAGs

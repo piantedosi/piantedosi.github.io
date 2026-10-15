@@ -5,6 +5,7 @@ description: "Discover the arrows of a hidden causal DAG."
 permalink: /causal_dag_discovery_game/
 theme: jekyll-theme-architect
 classes: wide
+preview_image:
 ---
 
 # Causal DAG discovery game

@@ -1,0 +1,16 @@
+{%- assign image_file = include.note.preview_image | default: "" | strip -%}
+{%- if include.note and image_file != "" -%}
+  {%- if image_file contains "://" -%}
+    {{- image_file -}}
+  {%- else -%}
+    {%- assign image_file = image_file | remove_first: "./" -%}
+    {%- assign image_lead = image_file | slice: 0, 1 -%}
+    {%- if image_lead == "/" -%}
+      {{- image_file | relative_url -}}
+    {%- else -%}
+      {%- assign image_dir = include.note.path | replace: include.note.name, "" -%}
+      {%- assign image_url = image_dir | append: image_file | replace: " ", "%20" -%}
+      {{- "/" | append: image_url | relative_url -}}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}

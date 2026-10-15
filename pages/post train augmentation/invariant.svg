@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470" width="760" height="470" role="img">
+  <title>Invariant transform</title>
+  <desc>A quarter turn changes the input. Both applications of the model arrive at the same yes.</desc>
+  <defs>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1c2430"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1d4e89"/>
+    </marker>
+    <g id="glyph">
+      <polygon points="-24,10 -2,10 -2,4 18,14 -2,24 -2,18 -24,18" fill="#d7263d"/>
+      <polygon points="-18,24 -18,2 -24,2 -12,-18 0,2 -6,2 -6,24" fill="#1b8a4a"/>
+    </g>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; fill: #1c2430; }
+    .panel { fill: #f7fbff; stroke: #c5d4e4; stroke-width: 1.5; }
+    .formula { font-size: 16px; font-weight: 650; fill: #1d4e89; }
+    .label { font-size: 14px; }
+    .small { font-size: 13px; fill: #3d4c5f; }
+    .box { fill: #ffffff; stroke: #1c2430; stroke-width: 1.6; }
+    .pill { fill: #e8f6ee; stroke: #1b8a4a; stroke-width: 1.6; }
+  </style>
+  <rect class="panel" x="8" y="8" width="744" height="454" rx="12"/>
+  <text class="formula" x="32" y="44">M(Rx) = M(x)</text>
+  <text class="small" x="32" y="68">M asks: is the green arrow above the red?</text>
+
+  <rect class="box" x="150" y="90" width="88" height="88" rx="8"/>
+  <use href="#glyph" transform="translate(194 134)"/>
+  <text class="label" x="194" y="200" text-anchor="middle">x</text>
+
+  <line x1="250" y1="134" x2="400" y2="134" stroke="#1c2430" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <text class="label" x="325" y="122" text-anchor="middle">R</text>
+  <text class="small" x="325" y="158" text-anchor="middle">quarter turn rotation</text>
+
+  <rect class="box" x="412" y="90" width="88" height="88" rx="8"/>
+  <use href="#glyph" transform="translate(456 134) rotate(90)"/>
+  <text class="label" x="456" y="200" text-anchor="middle">Rx</text>
+
+  <line x1="194" y1="214" x2="325" y2="300" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="150" y="268">M</text>
+  <line x1="456" y1="214" x2="345" y2="300" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="530" y="248">M</text>
+
+  <rect class="pill" x="277" y="308" width="96" height="44" rx="22"/>
+  <text class="label" x="325" y="336" text-anchor="middle">yes</text>
+  <text class="small" x="380" y="400" text-anchor="middle">One output. Nothing on it has to be undone.</text>
+</svg>

@@ -5,6 +5,7 @@ description: "How precision and recall change when anomalies are stretches of a 
 permalink: /precision_and_recall_in_continuous_anomaly_detection/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: example_raw.png
 
 ---
 

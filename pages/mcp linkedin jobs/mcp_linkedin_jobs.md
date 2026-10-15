@@ -5,6 +5,7 @@ description: "A local MCP server that lets Cursor browse LinkedIn jobs safely an
 permalink: /mcp-linkedin-jobs/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: mcp_video.gif
 ---
 
 # MCP Server for exploring and extracting LinkedIn Job Postings

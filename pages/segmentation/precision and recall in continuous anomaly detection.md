@@ -5,6 +5,7 @@ description: "Label every pixel of a scene with a small PyTorch segmentation mod
 permalink: /segmentation/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: example.png
 
 ---
 

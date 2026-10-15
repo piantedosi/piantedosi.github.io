@@ -1,0 +1,129 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 820" width="760" height="820" role="img">
+  <title>Post-training augmentation</title>
+  <desc>The model is applied to the identity, a quarter turn, a half turn, and a diagonal reflection. Each outline is mapped back by the inverse arrow. A noise mark on each outline is dropped by the mean.</desc>
+  <defs>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1c2430"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1d4e89"/>
+    </marker>
+    <g id="glyph">
+      <polygon points="-24,10 -2,10 -2,4 18,14 -2,24 -2,18 -24,18" fill="#d7263d"/>
+      <polygon points="-18,24 -18,2 -24,2 -12,-18 0,2 -6,2 -6,24" fill="#1b8a4a"/>
+    </g>
+    <g id="glyph-outline" fill="none" stroke-width="2.2" stroke-linejoin="round">
+      <polygon points="-24,10 -2,10 -2,4 18,14 -2,24 -2,18 -24,18" stroke="#d7263d"/>
+      <polygon points="-18,24 -18,2 -24,2 -12,-18 0,2 -6,2 -6,24" stroke="#1b8a4a"/>
+    </g>
+    <!-- A wiggle that belongs to one view only. The mean does not keep it. -->
+    <g id="speck">
+      <path d="M -8 1 C -5 -5 -2 5 1 -1 C 4 -6 6 4 8 0" fill="none" stroke="#7d8ea3" stroke-width="1.8" stroke-linecap="round"/>
+    </g>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; fill: #1c2430; }
+    .panel { fill: #f7fbff; stroke: #c5d4e4; stroke-width: 1.5; }
+    .formula { font-size: 16px; font-weight: 650; fill: #1d4e89; }
+    .label { font-size: 14px; }
+    .small { font-size: 13px; fill: #3d4c5f; }
+    .box { fill: #ffffff; stroke: #1c2430; stroke-width: 1.6; }
+    .inv { fill: none; stroke: #1c2430; stroke-width: 1.8; }
+  </style>
+  <rect class="panel" x="8" y="8" width="744" height="804" rx="12"/>
+  <text class="formula" x="32" y="44">y = mean of the augmentations</text>
+  <text class="small" x="32" y="66">M gets the outline.</text>
+  <text class="small" x="32" y="84">Each view adds some noise that the others do not share.</text>
+
+  <text class="label" x="96" y="108" text-anchor="middle">identity</text>
+  <text class="label" x="292" y="108" text-anchor="middle">R</text>
+  <text class="small" x="292" y="126" text-anchor="middle">quarter turn</text>
+  <text class="label" x="488" y="108" text-anchor="middle">R^2</text>
+  <text class="small" x="488" y="126" text-anchor="middle">half turn</text>
+  <text class="label" x="684" y="108" text-anchor="middle">D</text>
+  <text class="small" x="684" y="126" text-anchor="middle">diagonal</text>
+
+  <rect class="box" x="58" y="142" width="76" height="76" rx="8"/>
+  <use href="#glyph" transform="translate(96 180)"/>
+  <rect class="box" x="254" y="142" width="76" height="76" rx="8"/>
+  <use href="#glyph" transform="translate(292 180) rotate(90)"/>
+  <rect class="box" x="450" y="142" width="76" height="76" rx="8"/>
+  <use href="#glyph" transform="translate(488 180) rotate(180)"/>
+  <rect class="box" x="646" y="142" width="76" height="76" rx="8"/>
+  <use href="#glyph" transform="translate(684 180) matrix(0,-1,-1,0,0,0)"/>
+
+  <line x1="96" y1="226" x2="96" y2="268" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="108" y="254">M</text>
+  <line x1="292" y1="226" x2="292" y2="268" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="304" y="254">M</text>
+  <line x1="488" y1="226" x2="488" y2="268" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="500" y="254">M</text>
+  <line x1="684" y1="226" x2="684" y2="268" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="696" y="254">M</text>
+
+  <!-- M outputs: the outline only, still in the transformed frame, each with its own noise. -->
+  <g transform="translate(96 310)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(16 -18)"/>
+  </g>
+  <g transform="translate(292 310) rotate(90)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(-16 -18)"/>
+  </g>
+  <g transform="translate(488 310) rotate(180)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(18 -2)"/>
+  </g>
+  <g transform="translate(684 310) matrix(0,-1,-1,0,0,0)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(16 16)"/>
+  </g>
+
+  <!-- Inverse of each group element: a straight arrow, name to its right. -->
+  <line class="inv" x1="96" y1="352" x2="96" y2="408" marker-end="url(#ah-ink)"/>
+  <line class="inv" x1="292" y1="352" x2="292" y2="408" marker-end="url(#ah-ink)"/>
+  <text class="label" x="304" y="386">R^-1</text>
+  <line class="inv" x1="488" y1="352" x2="488" y2="408" marker-end="url(#ah-ink)"/>
+  <text class="label" x="500" y="386">R^-2</text>
+  <line class="inv" x1="684" y1="352" x2="684" y2="408" marker-end="url(#ah-ink)"/>
+  <text class="label" x="696" y="386">D^-1</text>
+
+  <!-- Outlines mapped back. The noise has moved with the inverse, and it is not shared. -->
+  <g transform="translate(96 470)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(16 -18)"/>
+  </g>
+  <g transform="translate(292 470)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(-16 -18)"/>
+  </g>
+  <g transform="translate(488 470)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(18 -2)"/>
+  </g>
+  <g transform="translate(684 470)">
+    <rect class="box" x="-38" y="-38" width="76" height="76" rx="8"/>
+    <use href="#glyph-outline"/>
+    <use href="#speck" transform="translate(16 16)"/>
+  </g>
+
+  <line x1="96" y1="512" x2="96" y2="548" stroke="#1c2430" stroke-width="1.4"/>
+  <line x1="292" y1="512" x2="292" y2="548" stroke="#1c2430" stroke-width="1.4"/>
+  <line x1="488" y1="512" x2="488" y2="548" stroke="#1c2430" stroke-width="1.4"/>
+  <line x1="684" y1="512" x2="684" y2="548" stroke="#1c2430" stroke-width="1.4"/>
+  <line x1="96" y1="548" x2="684" y2="548" stroke="#1c2430" stroke-width="1.4"/>
+  <line x1="390" y1="548" x2="390" y2="606" stroke="#1c2430" stroke-width="1.6" marker-end="url(#ah-ink)"/>
+
+  <rect class="box" x="350" y="610" width="80" height="80" rx="8"/>
+  <use href="#glyph-outline" transform="translate(390 650)"/>
+  <text class="label" x="446" y="628">y</text>
+  <text class="small" x="446" y="650">mean of the augmentations,</text>
+  <text class="small" x="446" y="668">this removes the noise</text>
+</svg>

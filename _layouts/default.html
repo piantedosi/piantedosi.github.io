@@ -67,9 +67,26 @@
           {{ content }}
         </section>
 
+        <aside id="link-preview" class="link-preview" aria-hidden="true">
+          <div class="link-preview-body">
+            <p class="link-preview-title"></p>
+            <p class="link-preview-description"></p>
+          </div>
+        </aside>
+
         <aside id="sidebar">
           <nav class="site-nav" aria-label="Projects">
             <p><a href="{{ '/' | relative_url }}">Home</a></p>
+
+            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Causal stuff</p>
+            <ul>
+              <li>
+                {% include post-link.html permalink="/causal_dag_agent_explorer/" label="Causal DAG AI agent explorer" %}
+                <ul>
+                  <li>{% include post-link.html permalink="/causal_dag_discovery_game/" label="Causal DAG discovery game" %}</li>
+                </ul>
+              </li>
+            </ul>
 
             <p class="nav-group">{% include icon-wave.html class="nav-icon" %} Generative models</p>
             <ul>
@@ -86,6 +103,7 @@
             <p class="nav-group">{% include icon-grid.html class="nav-icon" %} Image segmentation</p>
             <ul>
               <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
+              <li>{% include post-link.html permalink="/post_train_aug/" label="Post train augmentation" %}</li>
             </ul>
 
             <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Tools</p>
@@ -93,19 +111,131 @@
               <li>{% include post-link.html permalink="/mcp-linkedin-jobs/" label="MCP server for LinkedIn jobs" %}</li>
             </ul>
 
-            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Causal stuff</p>
-            <ul>
-              <li>
-                {% include post-link.html permalink="/causal_dag_agent_explorer/" label="Causal DAG AI agent explorer" %}
-                <ul>
-                  <li>{% include post-link.html permalink="/causal_dag_discovery_game/" label="Causal DAG discovery game" %}</li>
-                </ul>
-              </li>
-            </ul>
           </nav>
         </aside>
       </div>
     </div>
+    <script>
+      (function () {
+        var panel = document.getElementById("link-preview");
+        if (!panel) return;
+        var inner = document.querySelector("#content-wrapper .inner");
+        var titleEl = panel.querySelector(".link-preview-title");
+        var descEl = panel.querySelector(".link-preview-description");
+        var body = panel.querySelector(".link-preview-body");
+        var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var currentHref = null;
+        var currentLink = null;
+        var token = 0;
 
+        function linkFrom(node) {
+          if (!node) return null;
+          if (node.nodeType === 3) node = node.parentElement;
+          if (node && node.closest) return node.closest(".post-link");
+          return null;
+        }
+
+        function apply(link) {
+          titleEl.textContent = link.getAttribute("data-preview-title") || "";
+          descEl.textContent = link.getAttribute("data-preview-description") || "";
+          var src = link.getAttribute("data-preview-image") || "";
+          var figure = panel.querySelector(".link-preview-figure");
+          if (!src) {
+            if (figure) figure.remove();
+            return;
+          }
+          if (!figure) {
+            figure = document.createElement("div");
+            figure.className = "link-preview-figure";
+            var image = document.createElement("img");
+            image.className = "link-preview-image";
+            image.alt = "";
+            image.addEventListener("load", function () {
+              if (panel.classList.contains("is-open") && currentLink) place(currentLink);
+            });
+            figure.appendChild(image);
+            body.appendChild(figure);
+          }
+          var image = figure.querySelector("img");
+          if (image.getAttribute("src") !== src) image.setAttribute("src", src);
+        }
+
+        function place(link) {
+          var innerRect = inner.getBoundingClientRect();
+          var linkRect = link.getBoundingClientRect();
+          var mainRect = document.getElementById("main-content").getBoundingClientRect();
+          var sideRect = document.getElementById("sidebar").getBoundingClientRect();
+          var midLeft = mainRect.right - innerRect.left;
+          var midRight = sideRect.left - innerRect.left;
+          var left = midLeft + 16;
+          var maxLeft = midRight - panel.offsetWidth - 16;
+          if (left > maxLeft) left = Math.max(midLeft, maxLeft);
+          var top = linkRect.top - innerRect.top;
+          var maxTop = window.innerHeight - innerRect.top - panel.offsetHeight - 16;
+          if (top > maxTop) top = Math.max(0, maxTop);
+          if (top < 0) top = 0;
+          panel.style.left = left + "px";
+          panel.style.top = top + "px";
+        }
+
+        function mark(href) {
+          document.querySelectorAll(".post-link.is-previewed").forEach(function (el) {
+            el.classList.remove("is-previewed");
+          });
+          document.querySelectorAll(".post-link").forEach(function (el) {
+            if (el.getAttribute("href") === href) el.classList.add("is-previewed");
+          });
+        }
+
+        function hide() {
+          token += 1;
+          currentHref = null;
+          currentLink = null;
+          panel.classList.remove("is-open", "is-fading");
+          document.querySelectorAll(".post-link.is-previewed").forEach(function (el) {
+            el.classList.remove("is-previewed");
+          });
+        }
+
+        function show(link) {
+          var href = link.getAttribute("href");
+          if (panel.classList.contains("is-open") && href === currentHref) {
+            currentLink = link;
+            place(link);
+            return;
+          }
+          var wasOpen = panel.classList.contains("is-open");
+          currentHref = href;
+          currentLink = link;
+          mark(href);
+          var next = ++token;
+          var reveal = function () {
+            if (next !== token) return;
+            apply(link);
+            panel.classList.add("is-open");
+            panel.classList.remove("is-fading");
+            place(link);
+          };
+          if (!wasOpen || reduce) {
+            reveal();
+            return;
+          }
+          panel.classList.add("is-fading");
+          window.setTimeout(reveal, 160);
+        }
+
+        function leaving(event) {
+          if (linkFrom(event.relatedTarget)) return;
+          hide();
+        }
+
+        document.querySelectorAll(".site-nav .post-link, #main-content .post-list .post-link").forEach(function (link) {
+          link.addEventListener("pointerenter", function () { show(link); });
+          link.addEventListener("pointerleave", leaving);
+          link.addEventListener("focus", function () { show(link); });
+          link.addEventListener("blur", leaving);
+        });
+      })();
+    </script>
   </body>
 </html>

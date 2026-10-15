@@ -5,6 +5,7 @@ description: "Draw new tabular samples with a Gibbs sampler whose conditionals c
 permalink: /gibbs_sampling_from_decision_tree/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: original_and_new.png
 
 ---
 

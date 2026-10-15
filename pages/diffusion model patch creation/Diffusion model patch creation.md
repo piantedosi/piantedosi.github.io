@@ -5,6 +5,7 @@ description: "Cut each training image into patches for a vision transformer, and
 permalink: /diffusion_model_patch_creation/
 theme: jekyll-theme-architect
 classes: wide
+preview_image: patching.png
 ---
 
 # Patch creation

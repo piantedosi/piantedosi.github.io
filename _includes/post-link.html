@@ -1,7 +1,6 @@
 {% assign note = site.pages | where: "permalink", include.permalink | first %}
-<a class="post-link" href="{{ note.url | default: include.permalink | relative_url }}">
+{% capture preview_image %}{% include first-image.html note=note %}{% endcapture %}
+{% assign preview_image = preview_image | strip %}
+<a class="post-link" href="{{ note.url | default: include.permalink | relative_url }}" data-preview-title="{{ include.label | default: note.title | escape }}"{% if note.description %} data-preview-description="{{ note.description | escape }}"{% endif %}{% if preview_image != "" %} data-preview-image="{{ preview_image | escape }}"{% endif %}>
   <span class="post-name">{{ include.label | default: note.title }}</span>
-  {% if note.description %}
-    <span class="post-tip" role="tooltip">{{ note.description }}</span>
-  {% endif %}
 </a>

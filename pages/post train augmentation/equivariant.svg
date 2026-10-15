@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 500" width="760" height="500" role="img">
+  <title>Equivariant transform</title>
+  <desc>A quarter turn of the input is matched by the same quarter turn of the arrow outline.</desc>
+  <defs>
+    <marker id="ah-ink" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1c2430"/>
+    </marker>
+    <marker id="ah-blue" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 1.2 L 9 5 L 0 8.8 Z" fill="#1d4e89"/>
+    </marker>
+    <g id="glyph">
+      <polygon points="-24,10 -2,10 -2,4 18,14 -2,24 -2,18 -24,18" fill="#d7263d"/>
+      <polygon points="-18,24 -18,2 -24,2 -12,-18 0,2 -6,2 -6,24" fill="#1b8a4a"/>
+    </g>
+    <g id="glyph-outline" fill="none" stroke-width="2.2" stroke-linejoin="round">
+      <polygon points="-24,10 -2,10 -2,4 18,14 -2,24 -2,18 -24,18" stroke="#d7263d"/>
+      <polygon points="-18,24 -18,2 -24,2 -12,-18 0,2 -6,2 -6,24" stroke="#1b8a4a"/>
+    </g>
+  </defs>
+  <style>
+    text { font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; fill: #1c2430; }
+    .panel { fill: #f7fbff; stroke: #c5d4e4; stroke-width: 1.5; }
+    .formula { font-size: 16px; font-weight: 650; fill: #1d4e89; }
+    .label { font-size: 14px; }
+    .small { font-size: 13px; fill: #3d4c5f; }
+    .box { fill: #ffffff; stroke: #1c2430; stroke-width: 1.6; }
+  </style>
+  <rect class="panel" x="8" y="8" width="744" height="484" rx="12"/>
+  <text class="formula" x="32" y="44">M(Rx) = R M(x)</text>
+  <text class="small" x="32" y="68">M gets the outline of the arrows.</text>
+
+  <rect class="box" x="150" y="80" width="88" height="88" rx="8"/>
+  <use href="#glyph" transform="translate(194 124)"/>
+  <text class="label" x="194" y="190" text-anchor="middle">x</text>
+
+  <line x1="250" y1="124" x2="400" y2="124" stroke="#1c2430" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <text class="label" x="325" y="112" text-anchor="middle">R</text>
+  <text class="small" x="325" y="148" text-anchor="middle">quarter turn rotation</text>
+
+  <rect class="box" x="412" y="80" width="88" height="88" rx="8"/>
+  <use href="#glyph" transform="translate(456 124) rotate(90)"/>
+  <text class="label" x="456" y="190" text-anchor="middle">Rx</text>
+
+  <line x1="194" y1="206" x2="194" y2="300" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="208" y="258">M</text>
+  <line x1="456" y1="206" x2="456" y2="300" stroke="#1d4e89" stroke-width="1.8" marker-end="url(#ah-blue)"/>
+  <text class="formula" x="468" y="258">M</text>
+
+  <rect class="box" x="150" y="296" width="88" height="88" rx="8"/>
+  <use href="#glyph-outline" transform="translate(194 340)"/>
+  <text class="label" x="194" y="408" text-anchor="middle">M(x)</text>
+
+  <line x1="250" y1="340" x2="400" y2="340" stroke="#1c2430" stroke-width="1.8" marker-end="url(#ah-ink)"/>
+  <text class="label" x="325" y="328" text-anchor="middle">R</text>
+  <text class="small" x="325" y="364" text-anchor="middle">quarter turn rotation</text>
+
+  <rect class="box" x="412" y="296" width="88" height="88" rx="8"/>
+  <use href="#glyph-outline" transform="translate(456 340) rotate(90)"/>
+  <text class="label" x="456" y="408" text-anchor="middle">M(Rx)</text>
+
+  <text class="small" x="380" y="450" text-anchor="middle">After M there is only the outline, turned with the input.</text>
+</svg>
