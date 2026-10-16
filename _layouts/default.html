@@ -40,7 +40,7 @@
     <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
   </head>
 
-  <body>
+  <body{% if page.path == "index.md" %} class="home"{% endif %}>
     <header>
       <div class="inner">
         <div class="title-block">
@@ -74,11 +74,12 @@
           </div>
         </aside>
 
+        {% unless page.path == "index.md" %}
         <aside id="sidebar">
           <nav class="site-nav" aria-label="Projects">
             <p><a href="{{ '/' | relative_url }}">Home</a></p>
 
-            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Causal stuff</p>
+            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Causal stuff:</p>
             <ul>
               <li>
                 {% include post-link.html permalink="/causal_dag_agent_explorer/" label="Causal DAG AI agent explorer" %}
@@ -88,31 +89,32 @@
               </li>
             </ul>
 
-            <p class="nav-group">{% include icon-wave.html class="nav-icon" %} Generative models</p>
+            <p class="nav-group">{% include icon-wave.html class="nav-icon" %} Generative models:</p>
             <ul>
               <li>{% include post-link.html permalink="/diffusion_model/" label="Diffusion model" %}</li>
               <li>{% include post-link.html permalink="/diffusion_model_patch_creation/" label="Patches for vision transformers" %}</li>
               <li>{% include post-link.html permalink="/gibbs_sampling_from_decision_tree/" label="Gibbs sampling and decision trees" %}</li>
             </ul>
 
-            <p class="nav-group">{% include icon-curve.html class="nav-icon" %} Anomaly detection</p>
+            <p class="nav-group">{% include icon-curve.html class="nav-icon" %} Anomaly detection:</p>
             <ul>
               <li>{% include post-link.html permalink="/precision_and_recall_in_continuous_anomaly_detection/" label="Precision and recall in continuous contexts" %}</li>
             </ul>
 
-            <p class="nav-group">{% include icon-grid.html class="nav-icon" %} Image segmentation</p>
+            <p class="nav-group">{% include icon-grid.html class="nav-icon" %} Image segmentation:</p>
             <ul>
               <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
               <li>{% include post-link.html permalink="/post_train_aug/" label="Post train augmentation" %}</li>
             </ul>
 
-            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Tools</p>
+            <p class="nav-group">{% include icon-nodes.html class="nav-icon" %} Tools:</p>
             <ul>
               <li>{% include post-link.html permalink="/mcp-linkedin-jobs/" label="MCP server for LinkedIn jobs" %}</li>
             </ul>
 
           </nav>
         </aside>
+        {% endunless %}
       </div>
     </div>
     <script>
@@ -164,11 +166,16 @@
           var innerRect = inner.getBoundingClientRect();
           var linkRect = link.getBoundingClientRect();
           var mainRect = document.getElementById("main-content").getBoundingClientRect();
-          var sideRect = document.getElementById("sidebar").getBoundingClientRect();
+          var sidebar = document.getElementById("sidebar");
+          var sideRect = sidebar ? sidebar.getBoundingClientRect() : null;
           var midLeft = mainRect.right - innerRect.left;
-          var midRight = sideRect.left - innerRect.left;
+          var midRight = sideRect ? sideRect.left - innerRect.left : innerRect.width;
+          var gap = midRight - midLeft;
+          var width = sideRect ? 260 : Math.min(480, Math.max(260, gap - 32));
+          panel.style.width = width + "px";
+          panel.classList.toggle("is-wide", width > 320);
           var left = midLeft + 16;
-          var maxLeft = midRight - panel.offsetWidth - 16;
+          var maxLeft = midRight - width - 16;
           if (left > maxLeft) left = Math.max(midLeft, maxLeft);
           var top = linkRect.top - innerRect.top;
           var maxTop = window.innerHeight - innerRect.top - panel.offsetHeight - 16;

@@ -4,7 +4,7 @@ layout: default
 
 # Some Projects
 
-<h2>{% include icon-nodes.html %} Causal stuff</h2>
+<h2>{% include icon-nodes.html %} Causal stuff:</h2>
 
 <ul class="post-list">
   <li>
@@ -33,14 +33,14 @@ layout: default
   <li>{% include post-link.html permalink="/precision_and_recall_in_continuous_anomaly_detection/" label="A note on precision and recall in continuous contexts" %}</li>
 </ul>
 
-<h2>{% include icon-grid.html %} Image Segmentation</h2>
+<h2>{% include icon-grid.html %} Image Segmentation:</h2>
 
 <ul class="post-list">
   <li>{% include post-link.html permalink="/segmentation/" label="Simple image segmentation with Pytorch" %}</li>
   <li>{% include post-link.html permalink="/post_train_aug/" label="Post train augmentation" %}</li>
 </ul>
 
-<h2>{% include icon-nodes.html %} Tools</h2>
+<h2>{% include icon-nodes.html %} Tools:</h2>
 
 <ul class="post-list">
   <li>{% include post-link.html permalink="/mcp-linkedin-jobs/" label="MCP server for LinkedIn jobs" %}</li>
